@@ -22,7 +22,7 @@ import {
 } from "../network/connection/TCPMTProxy";
 import { Semaphore } from "async-mutex";
 import { LogLevel } from "../extensions/Logger";
-import { isBrowser, isNode } from "../platform";
+import { isBrowser, isCloudflareWorker, isNode } from "../platform";
 import Deferred from "../extensions/Deferred";
 import Timeout = NodeJS.Timeout;
 
@@ -152,7 +152,7 @@ const clientParamsDefault = {
     langCode: "en",
     systemLangCode: "en",
     _securityChecks: true,
-    useWSS: isBrowser ? window.location.protocol == "https:" : false,
+    useWSS: isBrowser ? window.location.protocol == "https:" : isCloudflareWorker ? true : false,
     testServers: false,
 };
 
